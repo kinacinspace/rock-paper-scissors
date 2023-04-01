@@ -16,3 +16,15 @@ function getComputerChoice(){
     }
 }
 
+function getPlayerChoice(){
+    playerChoice = prompt("Write (rock, paper, scissors)")
+    switch (playerChoice.toLowerCase()){
+        case "rock": return ROCK;
+        case "paper": return PAPER;
+        case "scissors": return SCISSORS;
+    }
+    console.log("Invalid input!")
+    getPlayerChoice()
+}
+
+
