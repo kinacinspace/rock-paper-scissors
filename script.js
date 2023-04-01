@@ -27,4 +27,41 @@ function getPlayerChoice(){
     getPlayerChoice()
 }
 
+function playRound(playerHand, computerHand){
+    let playerHandString = handToString(playerHand)
+    let computerHandString = handToString(computerHand)
+    if (playerHand == ROCK) {
+        switch (computerHand){
+            case ROCK: return `Tie!`;
+            case PAPER: return `You lose! ${capitalizeString(computerHandString)} beats ${playerHandString}!`;
+            case SCISSORS: return `You win! ${capitalizeString(playerHandString)} beats ${computerHandString}!`;
+        }
+    } else if (playerHand == PAPER) {
+        switch (computerHand){
+            case ROCK: return `You win! ${capitalizeString(playerHandString)} beats ${computerHandString}!`;
+            case PAPER: return `Tie!`;
+            case SCISSORS: return `You lose! ${capitalizeString(computerHandString)} beats ${playerHandString}!`;
+        }
+    } else if (playerHand == SCISSORS) {
+        switch (computerHand){
+            case ROCK: return `You lose! ${capitalizeString(computerHandString)} beats ${playerHandString}!`;
+            case PAPER: return `You win! ${capitalizeString(playerHandString)} beats ${computerHandString}!`;
+            case SCISSORS: return `Tie!`
+        }
+    }
+}
 
+function capitalizeString(string){
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+function handToString(hand){
+    switch (hand){
+        case ROCK: return "rock";
+        case PAPER: return "paper";
+        case SCISSORS: return "scissors";
+    }
+    console.error("Invalid hand");
+}
+
+console.log(playRound(getPlayerChoice(), getComputerChoice()))
