@@ -1,6 +1,8 @@
 const ROCK = 0
 const PAPER = 1
 const SCISSORS = 2
+let playerScore = 0
+let computerScore = 0
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -32,20 +34,27 @@ function playRound(playerHand, computerHand){
     let computerHandString = handToString(computerHand)
     if (playerHand == ROCK) {
         switch (computerHand){
-            case ROCK: return `Tie!`;
-            case PAPER: return `You lose! ${capitalizeString(computerHandString)} beats ${playerHandString}!`;
-            case SCISSORS: return `You win! ${capitalizeString(playerHandString)} beats ${computerHandString}!`;
+            case ROCK:
+                return `Tie!`;
+            case PAPER: computerScore++
+                return `You lose! ${capitalizeString(computerHandString)} beats ${playerHandString}!`;
+            case SCISSORS: playerScore++
+                return `You win! ${capitalizeString(playerHandString)} beats ${computerHandString}!`;
         }
     } else if (playerHand == PAPER) {
         switch (computerHand){
-            case ROCK: return `You win! ${capitalizeString(playerHandString)} beats ${computerHandString}!`;
+            case ROCK: playerScore++
+                return `You win! ${capitalizeString(playerHandString)} beats ${computerHandString}!`;
             case PAPER: return `Tie!`;
-            case SCISSORS: return `You lose! ${capitalizeString(computerHandString)} beats ${playerHandString}!`;
+            case SCISSORS: computerScore++
+                return `You lose! ${capitalizeString(computerHandString)} beats ${playerHandString}!`;
         }
     } else if (playerHand == SCISSORS) {
         switch (computerHand){
-            case ROCK: return `You lose! ${capitalizeString(computerHandString)} beats ${playerHandString}!`;
-            case PAPER: return `You win! ${capitalizeString(playerHandString)} beats ${computerHandString}!`;
+            case ROCK: computerScore++
+                return `You lose! ${capitalizeString(computerHandString)} beats ${playerHandString}!`;
+            case PAPER: playerScore++
+                return `You win! ${capitalizeString(playerHandString)} beats ${computerHandString}!`;
             case SCISSORS: return `Tie!`
         }
     }
@@ -64,4 +73,18 @@ function handToString(hand){
     console.error("Invalid hand");
 }
 
-console.log(playRound(getPlayerChoice(), getComputerChoice()))
+function game(){
+    for (let i = 0; i < 5; i++) {
+        console.log(playRound(getPlayerChoice(), getComputerChoice()))
+        console.log(`Player score - ${playerScore}, Computer score - ${computerScore}`)
+    }
+    if (playerScore > computerScore) {
+        console.log("Congrats! You won the game!")
+    } else if (computerScore < playerScore) {
+        console.log("Darn! You just lost the game!")
+    } else {
+        console.log("This game is a tie!")
+    }
+}
+
+game()
