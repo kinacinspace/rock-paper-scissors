@@ -7,19 +7,39 @@ let winner = -1;
 
 
 const winnerText = document.querySelector(".winner");
-winnerText.style.visibility = "hidden"
-const buttons = document.querySelectorAll("button");
+const playAgainButton = document.querySelector(".play-again")
+const buttons = document.querySelectorAll(".buttons button");
 const resultText = document.querySelector(".result");
 const scoreText = document.querySelector(".score")
 const playerText = document.querySelector(".choice .player");
 const computerText = document.querySelector(".choice .computer");
 
+function reset() {
+    console.log("test")
+    winnerText.style.visibility = "hidden"
+    playAgainButton.style.visibility = "hidden"
+    buttons.forEach((button) => {
+        button.disabled = false;
+    });
+    playerScore = 0;
+    computerScore = 0;
+
+    scoreText.textContent = `0 - 0`
+    resultText.textContent = "Pick a hand!";
+    playerText.textContent = "";
+    computerText.textContent = "";
+};
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-  }  
+}
+
+function capitalizeString(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+} 
+
 
 function getComputerChoice(){
     switch (getRandomInt(1, 4)){
@@ -27,17 +47,6 @@ function getComputerChoice(){
         case 2: return PAPER;
         case 3: return SCISSORS;
     }
-}
-
-function getPlayerChoice(choice){
-    //playerChoice = prompt("Write (rock, paper, scissors)")
-    switch (choice){
-        case "rock": return ROCK;
-        case "paper": return PAPER;
-        case "scissors": return SCISSORS;
-    }
-    console.log("Invalid input!");
-    getPlayerChoice();
 }
 
 function playRound(playerHand){
@@ -93,12 +102,8 @@ function playRound(playerHand){
     resultText.textContent = result;
     playerText.textContent = playerHandString;
     computerText.textContent = computerHandString;
-
 }
 
-function capitalizeString(string){
-    return string.charAt(0).toUpperCase() + string.slice(1)
-}
 
 function handToString(hand){
     switch (hand){
@@ -107,20 +112,6 @@ function handToString(hand){
         case SCISSORS: return "scissors";
     }
     console.error("Invalid hand");
-}
-
-function game(playerChoice, computerChoice){
-    for (let i = 0; i < 5; i++) {
-        console.log(playRound(playerChoice, computerChoice))
-        console.log(`Player score - ${playerScore}, Computer score - ${computerScore}`)
-    }
-    if (playerScore > computerScore) {
-        console.log("Congrats! You won the game!")
-    } else if (computerScore < playerScore) {
-        console.log("Darn! You just lost the game!")
-    } else {
-        console.log("This game is a tie!")
-    }
 }
 
 
@@ -133,8 +124,12 @@ function announceWinner(winner) {
     }
     winnerText.style.visibility = "visible";
     winnerText.textContent = winText;
-}
+    playAgainButton.style.visibility = "visible";
 
+    buttons.forEach((button) => {
+        button.disabled = true;
+    });
+};
 
 
 buttons.forEach((button) => {
@@ -143,3 +138,10 @@ buttons.forEach((button) => {
     playRound(playerChoice);
   });
 });
+
+playAgainButton.addEventListener('click', () => {
+        reset();
+    }
+);
+
+reset()

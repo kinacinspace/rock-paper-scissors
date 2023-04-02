@@ -2,7 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: center;
     min-height: 100vh;
     font-family: 'Courier New', Courier, monospace;
     margin: 0;
@@ -11,23 +11,31 @@ body {
 .header {
     background-color: burlywood;
     margin: 0;
+    width: 100%;
 }
 
 h1 {
     text-align: center;
+    margin: 16px;
 }
 
-.result{
+.result {
     font-size: 32px;
     font-weight: bolder;
     margin: 0px;
+    min-height: 80px;
+}
+
+.winner {
+    margin: 2px;
 }
 
 .game {
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin: 16px 16px;
-    gap: 64px;
+    gap: 2px;
 
 }
 
@@ -51,14 +59,20 @@ p {
     margin: 16px;
 }
 
-button {
+.play-again {
+    width: 100px;
+}
+
+.buttons button {
     flex: 1;
     width: 300px;
     height: 200px;
     max-height: 200px;
     font-size: larger;
-};
+}
 
 .footer {
-    background-color: darksalmon;
+    width: 100%;
+    margin: 0;
+    background-color: #b99999;
 }
